@@ -117,7 +117,7 @@ def main():
         print("7. Salir")
         print("="*30)
         
-        opcion = input("\nSeleccione una opción (1-7): ").strip()
+        opcion = input("\nSeleccione una opción (1-7): ")
         
         match opcion:
             case "1": menu_registrar()
