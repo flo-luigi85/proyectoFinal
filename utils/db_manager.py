@@ -1,6 +1,8 @@
 import sqlite3
 from utils.helpers import imprimir_error
-from config import DB_NAME, TABLE_NAME
+
+DB_NAME = 'inventario.db' #Hardcodeado para evitar dependencia de config.py
+TABLE_NAME = 'productos' #Hardcodeado
 
 def conectar_db():
     return sqlite3.connect(DB_NAME)
@@ -15,12 +17,13 @@ def inicializar_db():
                 nombre TEXT NOT NULL,
                 descripcion TEXT,
                 cantidad INTEGER NOT NULL,
-                precio REAL NOT NULL
+                precio REAL NOT NULL,
                 categoria TEXT
             )
             '''
             cursor.execute(sql)
             conn.commit()
+            print("Base de datos inicializada correctamente.")
     except sqlite3.Error as e:
         imprimir_error(f"Error al inicializar la base de datos: {e}")   
 
@@ -105,7 +108,7 @@ def reporte_bajo_stock(limite):
     try:
         with conectar_db() as conn:
             cursor = conn.cursor()
-            sql = f'SELECT * FROM {TABLE_NAME} WHERE cantidad < ?'
+            sql = f'SELECT * FROM {TABLE_NAME} WHERE cantidad <= ?'
             cursor.execute(sql, (limite,))
             return cursor.fetchall()
     except sqlite3.Error as e:
