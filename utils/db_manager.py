@@ -1,5 +1,6 @@
 import sqlite3
 from utils.helpers import imprimir_error
+from config import DB_NAME, TABLE_NAME  # ← Importamos correctamente
 
 DB_NAME = 'inventario.db' #Hardcodeado para evitar dependencia de config.py
 TABLE_NAME = 'productos' #Hardcodeado
